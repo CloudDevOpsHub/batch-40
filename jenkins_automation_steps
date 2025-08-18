@@ -1,0 +1,66 @@
+//Create a jenkins server using script
+
+Steps:
+-login and create a ubuntu mechine and launch through ssh
+- sudi -i  --> change root access
+ls 
+cd tmp
+vi jenkins_bash.sh  //create and opens the file
+
+click i to insermode and paste below 
+--------------------------------------
+sudo apt update               
+java -version
+sudo apt install openjdk-21-jdk -y
+
+curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+sudo apt update
+sudo apt install jenkins -y
+
+------------------------------------
+ater esc and :wq save annd quit
+
+now run script ./jenkins_bash.sh
+-bash: ./jenkins_bash.sh: Permission denied // need to provide permission excustion read 4 write 2 and excution 1
+
+ls -ltr 
+chmod 755 jenkins_bash.sh
+./jenkins_bash.sh
+
+to check jenkins status below
+
+systemctl status jenkins
+
+copy public url and appennd 8080 port nubmer
+
+http://34.60.183.85:8080 //in my case (if any issues port or not load jenkins fallow below)
+
+search for firewall
+
+under firwall rules click on defaukt all http & https
+
+click on edit
+
+Protocols and ports --> choose Allow all and save
+
+now try to launch above url again
+
+once launch jenkins login manager appear there is var path for password
+
+cat /var/lib/jenkins/secrets/initialAdminPassword // copy the password after hit and paste in dashboard jennkins
+
+click conntinue 
+dashboard select install suggested plugins 
+
+
+and you succesfully launch 
+
+
+
+Note : once your practicle done remove VM and resources 
