@@ -18,3 +18,31 @@ agent any
         }
     }
 }
+
+
+
+window's
+
+
+pipline {
+agent any
+
+    stages {
+        stage('Git clone') {
+            steps {
+            git branch: 'main', url: 'https://github.com/DevSecOpsG/helloworldsimplejavaprogram'
+            }
+        }
+        stage('Build'){
+            steps{
+            bat '''set path=C:\\Program Files\\Java\\jdk1.8.0_311\\bin\\
+            javac helloworld.java'''
+            }
+        }
+		stage('Run'){
+            steps{
+            bat 'java Simple'
+            }
+        }
+   }
+}
