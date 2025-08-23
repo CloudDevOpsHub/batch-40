@@ -1,0 +1,233 @@
+instance ?   VM   
+NODE = any s/w docker applicaion id running in VM  
+
+
+
+AME: myfirstdockernode
+ZONE: us-central1-a
+MACHINE_TYPE: e2-medium
+PREEMPTIBLE: 
+INTERNAL_IP: 10.128.15.207
+EXTERNAL_IP: 34.71.186.45
+STATUS: RUNNING
+
+
+sudo -i
+apt-get update
+
+docker
+
+
+fresher
+apt install docker.io     everone know 
+
+or
+
+scripted
+
+sudo -i
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
+
+
+
+yum install docker
+
+
+
+it will pull the image from Docker hub
+
+docker pull hello-world   Node 
+
+docker images
+
+image to container ?  run
+
+docker run hello-world
+
+
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+	
+	
+1st 	imgae to container     Docker architecture 
+Website   Nginx 
+
+
+docker run -d -p 80:80 nginx
+
+docker run -d -p 8080:80 nginx
+
+docker run -p 80:80 nginx
+
+
+Jenkin's
+
+
+docker ps
+
+
+	
+
+
+
+time docker run --rm hello-world
+
+
+docker pull alpine    os 8.31 MB 
+
+docker run --rm alpine date
+docker run --rm ubuntu ls 
+docker run --rm centos  
+
+
+can we create 10 Container's in one VM ?
+
+for i in {1..10}; do docker run -d --rm alpine sleep 1000; done
+
+docker ps
+
+
+
+Nginx with Custom Web page 
+
+
+
+
+docker run --name docker-nginx23rdaug -d -p 80:80 nginx
+run = Nginx image will be rulled and Container will be created 
+pull = Nginx image will be pulled
+
+
+
+
+docker run
+ --name docker-nginx
+ -p 80:80
+ -d      it wil not show the logs in BG 
+ nginx
+ 
+ 
+ 
+ best practice how we can use the custome page 
+ 
+ /var/html  
+ mount ?    through Volume 
+ 
+ -v    :
+ 
+ 
+ tuesday 8AM    10 Day's 
+ 
+ 
+mkdir -p ~/docker-nginx/html
+
+mkdir docker-nginx html
+
+cd ~/docker-nginx/html
+vi index.html
+
+
+
+i just put your name
+
+docker run 
+--name docker-nginx
+ -p 80:80   vm port to Container 
+ -d
+ -v ~/docker-nginx/html:/usr/share/nginx/html   
+ nginx
+
+
+
+docker rm -f gracious_hopper
+
+docker run --name docker-nginx -p 80:80 -d -v ~/docker-nginx/html:/usr/share/nginx/html nginx
+
+
+vindex ?
+
+Google Clone   code pasted in index.html 
+
+
+docker run
+ -it             interactive  mode  
+ -d                  its on deattached mode
+ -p 8080:8080 
+ jenkins/jenkins:latest
+
+
+docker run -it -d -p 8080:8080 jenkins/jenkins:latest
+
+Containeration of Application 
+
+
+8AM 
+
+1000 Day's 
+
+
+1 Day 
+
+20 LPA things started 
+
+how to go inside the container ?
+
+docker exec –it 5b13c3ca5f5d  bin/bash
+
+cat /var/jenkins_home/secrets/initialAdminPassword
+
+
+-------------------
+Nginx Image 
+
+ubuntu
+apt-get update
+apt install nginx 
+
+
+vi Dockerfile 
+
+FROM ubuntu
+RUN apt-get update
+RUN apt-get install nginx -y
+CMD [“echo”,”Image created”]
+
+
+docker build -t mynginxbatch40 .
+
+docker login
+
+docker tag 25576dc0042a vikas4cloud/mynginxbatch21:latest
+
+docker push vikas4cloud/mynginxbatch21:latest
+
+image and uploaded 
+
+SHA 
+
+DockerFile  -- Image                 CAAS
+Terraform    main.tf   Inferacture   IAC
+
+K8s   --- pod        kind  
+
+
+
+apiVersion: networking.k8s.io/v1
+kind: pod
+metadata:
+  name: IngressName 
+  
+  
+  8AM    2.5 Month's   1000      s3 
+  
+  2 time   Double confidence 
+  
+  10 40 LPA 
