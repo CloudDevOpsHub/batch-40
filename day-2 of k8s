@@ -1,0 +1,167 @@
+
+
+NAME: sumit35lpa
+ZONE: us-central1-a
+MACHINE_TYPE: e2-standard-4
+PREEMPTIBLE: 
+INTERNAL_IP: 10.128.15.211
+EXTERNAL_IP: 34.71.44.18
+STATUS: RUNNING
+
+
+sudo -i
+docker --version
+apt-get update
+apt install docker.io -y
+
+
+
+
+apt-get update
+apt-get install nginx -y
+
+
+File 
+
+FROM ubuntu
+RUN apt-get update
+RUN apt-get install nginx -y
+CMD [“echo”,”Image created”]
+
+docker build -t mynginxbatch40 .
+
+docker login
+docker tag a12fc735d088 vikas4cloud/mynginxbatch40:latest
+docker push vikas4cloud/mynginxbatch40
+
+
+for i in {1..10}; do docker run -d --rm alpine sleep 1000; done  
+
+docker ps
+
+
+Node = VM + Docker 
+
+Multi node = CLuster 
+
+HA ?   the application ?
+
+How many nodes in your cluster ? = 1 MAster + 2node     =  Odd no    5 7 9 11 15 111
+
+
+curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+
+
+
+minikube
+
+curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+ 
+
+Kubernetes v1.33.1 on Docker 28.1.1
+
+
+
+kubectl ?  
+
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+
+Simple   way upto 10-15 LPA  
+
+20 LPA 
+
+kubectl get no
+minikube   Ready    control-plane   7m6s   v1.33.1
+
+
+ namespace.
+ 
+ what OS has to be used in Cluster ok K8s ?
+ 
+ in one node how many Pod can be added ?   best practice answer 
+ 
+ 110 
+ 
+ 
+ 
+ Came for Knowled  2 Day's 
+ Came upskilling for high package 
+ upskilling
+ Came for Certifate 
+ 
+ 
+ 
+ gcloud container clusters get-credentials autopilot-cluster-1 --region us-central1 --project march22paid
+ 
+ 
+ kubectl cluster-info
+ 
+Kubernetes control plane is running at https://35.202.122.210
+GLBCDefaultBackend is running at https://35.202.122.210/api/v1/namespaces/kube-system/services/default-http-backend:http/proxy
+KubeDNS is running at https://35.202.122.210/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+Metrics-server is running at https://35.202.122.210/api/v1/namespaces/kube-system/services/https:metrics-server:/proxy
+
+--------------------------
+
+
+Recording & time K8s PPT to you all 
+
+
+kubectl cluster-info
+
+and y cluster information is visible 
+
+Project Dev 1, 2 , 3  Cluster 
+
+1000+ nodess   dev , QA , PRE prod , PROD 
+
+
+Namespace ?   Isolated Env   Restime use case ?   
+
+kubectl get ns
+
+Compoment's are the
+
+
+default                        Active   52m
+gke-gmp-system                 Active   47m
+gke-managed-cim                Active   49m
+gke-managed-filestorecsi       Active   49m
+gke-managed-parallelstorecsi   Active   47m
+gke-managed-system             Active   48m
+gke-managed-volumepopulator    Active   48m
+gmp-public                     Active   47m
+kube-node-lease                Active   52m
+kube-public                    Active   52m
+kube-system                    Active   52m
+
+
+CLI
+kubectl create ns rudradev
+kubectl get ns
+
+yaml    arun30lpa
+
+
+
+---
+apiVersion: v1
+kind: Namespace
+metadata: 
+  name: arun30lpa
+
+how to execute manifest file ?
+
+create     apply 
+
+kubectl apply -f arun30lpa.yaml
+
+how to craete ns with multiple ways   CLI , YAML 
+
+application ?
+
