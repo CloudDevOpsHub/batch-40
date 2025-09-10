@@ -1,0 +1,142 @@
+Part 1 Create 3 ubuntu VM’s or Docker container 
+Step 1 Go to docker playground create an  instance / node and create 3 Ubuntu  container 
+
+1ˢᵗ - ansible_master 
+2ⁿᵈ target 1
+3ʳᵈ target 2
+
+Step 2 create containers     apt-get update && apt install docker.io -y
+
+docker run -itd --name ansible_master ubuntu /bin/bash
+docker run -itd --name target1 ubuntu /bin/bash
+docker run -itd --name target2 ubuntu /bin/bash
+
+Step 3 check the process and name for verification 
+docker ps
+
+Part 2 install Ansible and requies tools in ansible_master 
+Step 4 go to ansible_master container  update the ubuntu and install some dependencies and ansible
+
+docker exec -it ansible_master bash
+apt update
+apt install python-is-python3 vim iputils-ping openssh-client -y
+                           Geographical area 6 city 44
+apt install software-properties-common
+add-apt-repository --yes --update ppa:ansible/ansible
+apt install ansible
+
+ansible --version
+
+Part 3 Setup n number of target machines (2)/ container(2)Login to Target and setup target 1 
+
+Step 5  Login to target 1 
+docker exec -it target1 bash
+
+Step 6 Update and install SSH and required dependencies 
+apt update
+apt install vim python-is-python3 iputils-ping openssh-client -y
+apt-get install openssh-client openssh-server -y
+Geographical area 6 city 44
+
+Step 7 edit sshd_config to allow SSH and root login as ansible requires
+
+cd /etc/ssh 
+vi sshd_config
+uncomment the parameter and modify the permission to yes PermitRootLogin yes and PasswordAuthentication yes
+
+Step 8 Start the service ssh if its not running
+service ssh status
+service ssh start 
+service ssh status  
+
+Step 9 change the root password to admin 
+passwd root
+Admin
+Admin
+
+
+Part 4 Perform the same all steps with target 2 and so on
+Step 10 
+
+
+Part 5  Find the IP’s of all targets container  for adding in ansible host file 
+Come out to docker node and run the command 
+
+Step 11
+sudo docker inspect target1
+sudo docker inspect target2 
+
+
+You will find the IPAddress like 172.17.0.3
+
+
+Part 6 setup ansible_master for ssh connectivity  and adding IP’s in hostfile
+
+
+Step 12  go to ansible_master
+
+docker exec -it ansible_master bash
+
+Step 13 edit ansible host file and provide the target IP’s
+cd /etc/ansible/
+ls
+Go to hosts file   
+provide the IP of the target machines   like 172.17.0.3
+
+Step 14 verify as you are able to ping target machine from ansible_master
+
+Ping  <Target machine IP>
+
+go back to master machine
+
+Step 15 
+generate the ssh key from the ssh-keygen command 
+
+ssh-keygen
+provide 3 times enter    (1 location verification + 2 time for passwd )
+
+Part 7 copy the generated ssh keys from ansible_master to target machine and check the connectivity
+
+Step 15 Copy the generated key from ansible_master to remote target 
+
+ssh-copy-id root@172.17.0.3
+yes
+
+Step 16   You should be able to connect via target machine from ansible_master 
+ssh root@172.17.0.3
+
+verify nginx is there or not 
+
+service nginx status
+
+Part 8 Now create a ansible playbook  and run  ansible-playbook 
+
+Step 17 :- create a installnginx.yaml file in 
+cd /etc/ansible
+vi  installnginx.yaml
+
+---
+- hosts: all
+  tasks:
+    - name: ensure nginx is at the latest version
+      apt: name=nginx state=latest
+      
+      
+Step 18 :   Run ansible playbook
+
+ansible-playbook installnginx.yaml 
+ansible-playbook -i  host installnginx.yaml  
+
+Validation :- 
+
+You can verify login to target machine and check is Nginx Service is running or not 
+
+docker exec -it target1 bash
+service nginx status
+And 
+docker exec -it target2 bash
+
+service nginx status
+
+Nginx should be running in both the target machines / containers 
+    
