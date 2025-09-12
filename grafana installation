@@ -1,0 +1,311 @@
+Part 1 Create 3 ubuntu VM’s or Docker container 
+Step 1 Go to docker playground create an  instance / node and create 3 Ubuntu  container 
+
+1ˢᵗ - ansible_master 
+2ⁿᵈ target 1
+3ʳᵈ target 2
+
+Step 2 create containers     apt-get update && apt install docker.io -y
+
+docker run -itd --name ansible_master ubuntu /bin/bash
+docker run -itd -p 80:80 --name target1 nginx /bin/bash
+docker run -itd --name target2 ubuntu /bin/bash
+
+Step 3 check the process and name for verification 
+docker ps
+
+Part 2 install Ansible and requies tools in ansible_master 
+Step 4 go to ansible_master container  update the ubuntu and install some dependencies and ansible
+
+docker exec -it ansible_master bash
+apt update
+apt install python-is-python3 vim iputils-ping openssh-client -y
+                           Geographical area 6 city 44
+apt install software-properties-common
+add-apt-repository --yes --update ppa:ansible/ansible
+apt install ansible
+
+ansible --version
+
+Part 3 Setup n number of target machines (2)/ container(2)Login to Target and setup target 1 
+
+Step 5  Login to target 1 
+docker exec -it target1 bash
+
+Step 6 Update and install SSH and required dependencies 
+apt update
+apt install vim python-is-python3 iputils-ping openssh-client -y
+apt-get install openssh-client openssh-server -y
+Geographical area 6 city 44
+
+Step 7 edit sshd_config to allow SSH and root login as ansible requires
+
+cd /etc/ssh 
+vi sshd_config
+uncomment the parameter and modify the permission to yes PermitRootLogin yes and PasswordAuthentication yes
+
+Step 8 Start the service ssh if its not running
+service ssh status
+service ssh start 
+service ssh status  
+
+Step 9 change the root password to admin 
+passwd root
+Admin
+Admin
+
+
+Part 4 Perform the same all steps with target 2 and so on
+Step 10 
+
+
+Part 5  Find the IP’s of all targets container  for adding in ansible host file 
+Come out to docker node and run the command 
+
+Step 11
+sudo docker inspect target1
+sudo docker inspect target2 
+
+
+You will find the IPAddress like 172.17.0.3
+
+
+Part 6 setup ansible_master for ssh connectivity  and adding IP’s in hostfile
+
+
+Step 12  go to ansible_master
+
+docker exec -it ansible_master bash
+
+Step 13 edit ansible host file and provide the target IP’s
+cd /etc/ansible/
+ls
+Go to hosts file   
+provide the IP of the target machines   like 172.17.0.3
+
+Step 14 verify as you are able to ping target machine from ansible_master
+
+Ping  <Target machine IP>
+
+go back to master machine
+
+Step 15 
+generate the ssh key from the ssh-keygen command 
+
+ssh-keygen
+provide 3 times enter    (1 location verification + 2 time for passwd )
+
+Part 7 copy the generated ssh keys from ansible_master to target machine and check the connectivity
+
+Step 15 Copy the generated key from ansible_master to remote target 
+
+ssh-copy-id root@172.17.0.3
+yes
+
+Step 16   You should be able to connect via target machine from ansible_master 
+ssh root@172.17.0.3
+
+verify nginx is there or not 
+
+service nginx status
+
+Part 8 Now create a ansible playbook  and run  ansible-playbook 
+
+Step 17 :- create a installnginx.yaml file in 
+cd /etc/ansible
+vi  installnginx.yaml
+
+---
+- hosts: all
+  tasks:
+    - name: ensure nginx is at the latest version
+      apt: name=nginx state=latest
+      
+      
+Step 18 :   Run ansible playbook
+
+ansible-playbook installnginx.yaml 
+ansible-playbook -i  host installnginx.yaml  
+
+Validation :- 
+
+You can verify login to target machine and check is Nginx Service is running or not 
+
+docker exec -it target1 bash
+service nginx status
+And 
+docker exec -it target2 bash
+
+service nginx status
+
+Nginx should be running in both the target machines / containers 
+    
+    
+    
+    - hosts: dbservers
+    
+    if u want to do the activitity on perticular mavhine ???
+    ansible-playbook -i  host1  installnginx.yaml
+    
+    
+    
+    
+     
+    ssh setup 
+    not allowed 
+    ssh service not started 
+    22 port not enable 
+    ip issue 
+    firwall blocked 
+    ip table issue 
+    pwd mismatch 
+    sshkey mismatch 
+    
+    
+    Playbook  u want to use again anad again ?
+    5 playbook's 
+    
+    5 different team   patching activity 
+    
+    
+    patchingplaybook
+
+
+
+ansible-galaxy init nginxrole    
+
+
+---
+- hosts: localhost
+  roles:
+    - nginxrole
+    
+    
+    
+ - name: Update all packages to the latest version
+  become: true          it will become root 
+  
+  
+  
+  ansible-playbook ansibleplaybookwithroles/openjdk8.yml
+  
+  Host 
+  [db]
+  1202.20.0.0
+  
+  ---
+- hosts: localhost
+  roles:
+    - openjdk8
+    
+    kubernetes.yml
+    
+   ---
+- hosts: db
+  roles:
+    - kubernetes
+
+
+
+Roles ?   
+
+terraform  module / Role    
+
+in playbook task will be sequentually 
+host ip, com=nnectivity & exectuion is Pearllell 
+
+170.0.0.1 
+Default 
+
+why ? we all get the same IP ?  same ?   internal n/w    Docker containere in order   
+
+docker 
+port mapping  vm 
+pord fwd 
+
+Python ? 
+
+Python            
+Depenedency vs Agent ?
+
+20 server's ?
+
+Ansible ssh is not good for window's 
+
+
+
+
+✅ *5th Cloud & DevOps Offer* of this *Month has been alreday received by Batch-40 student's* 🚀
+🔥 Momentum is building inside our *55 Live Sessions – and many more offers are on the way in the coming days*!
+
+🎉 *Great News Again for Batch-40*! 🎉
+
+📌 Don’t miss out – *2 More Referral Openings have been shared Today* 👨‍💻
+
+
+
+
+
+
+
+
+
+
+-----------------
+
+
+
+                      Infrastructure creation’s
+
+Step 1 Create a GKE cluster
+
+Done 
+
+Step 2 Create a Namespace monitor (good practice)
+ kubectl create ns monitor
+
+Step 3 go to helm repo (code) of Promothus and grafana      Helm code is available on 
+ https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack
+
+Step 4 Add the repo in helm 
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+helm repo update
+
+Step 5 Install the Grafana and Promothus
+helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack --namespace monitor
+
+helm install
+ kube-prometheus-stack
+ prometheus-community/kube-prometheus-stack
+ --namespace monitor
+
+“kube-prometheus-stack” is the name of the release. You can change this if you want.
+“prometheus-community/kube-prometheus-stack” is the name of the chart.
+“monitor” is the name of the namespace where we are going to deploy the operator.
+
+
+Step 6 You can verify your installation using:
+ kubectl get pods -n monitor
+
+Step 7 create a service of grafana 
+
+Grafana Service:- create a service of on 3000 port as a loadbalancer
+
+or 
+
+kubectl expose deployment kube-prometheus-stack-grafana --port=3000 --target-port=3000 --name=grafana --type=LoadBalancer -n monitor
+
+Step 8 verify service and unlock Grafana 
+kubectl get svc -n monitor   admin/prom-operator
+
+Step 9 Explore Autoconfigured grafana dashboards 
+
+Some Dashboards 
+General / Kubernetes / Compute Resources / Cluster
+General / Kubernetes / Compute Resources / Namespace (Pods)
+
+Step 10 Delete the Helm chart
+
+  helm uninstall [RELEASE_NAME]
