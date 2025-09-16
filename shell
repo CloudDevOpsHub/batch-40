@@ -1,0 +1,292 @@
+SDK of Google   gcloud
+
+Service account 
+
+gcloud compute instances create linuxshell --project=march22paid --zone=us-central1-f --machine-type=e2-medium --network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=default --metadata=enable-osconfig=TRUE --maintenance-policy=MIGRATE --provisioning-model=STANDARD --service-account=866304468909-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/trace.append --tags=http-server,https-server --create-disk=auto-delete=yes,boot=yes,device-name=linuxshell,disk-resource-policy=projects/march22paid/regions/us-central1/resourcePolicies/default-schedule-1,image=projects/ubuntu-os-cloud/global/images/ubuntu-2404-noble-amd64-v20250828,mode=rw,size=20,type=pd-balanced --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --labels=goog-ops-agent-policy=v2-x86-template-1-4-0,goog-ec-src=vm_add-gcloud --reservation-affinity=any && printf 'agentsRule:\n  packageState: installed\n  version: latest\ninstanceFilter:\n  inclusionLabels:\n  - labels:\n      goog-ops-agent-policy: v2-x86-template-1-4-0\n' > config.yaml && gcloud compute instances ops-agents policies create goog-ops-agent-v2-x86-template-1-4-0-us-central1-f --project=march22paid --zone=us-central1-f --file=config.yaml
+
+
+NAME: linuxshell
+ZONE: us-central1-f
+MACHINE_TYPE: e2-medium
+PREEMPTIBLE: 
+INTERNAL_IP: 10.128.0.20
+EXTERNAL_IP: 34.66.166.63
+STATUS: RUNNING
+
+
+
+
+5 linux monitoring command's 
+
+
+exectuable perminisg 
+
+#! bin/bash crated by ratan 
+df -h 
+free 
+ps
+uptime
+who
+
+
+is this a Shellcript complete ? for moniring    if run run or not 
+
+
+Example 1
+
+#!/bin/bash  
+echo "This is a shell script created by prakash"  
+ls
+echo "I am running my first shell script"  
+SOMEVAR='this value will be saved in this veriable'  
+echo "$SOMEVAR"
+
+
+
+
+Example 2
+
+#!/bin/bash 
+echo "Hello batch40 student's"
+echo "My name is $(whoami)"
+echo "Nice to meet you"
+
+
+
+
+#!/bin/bash 
+echo "hostname of my machine is $(hostname)"
+echo "current running processes"
+ps
+echo "current free memory"
+free -h
+echo "current discspace"
+df-h
+
+
+
+4th 
+
+#!/bin/bash
+# Add two numeric value
+((sum=10*5))
+#Print the result
+echo $sum
+
+bodmas
+
+
+5
+
+
+------------------
+
+Example 5 Get User Input from the command line 
+
+
+#!/bin/bash
+echo "Enter Your name"
+read name
+echo "Welcome $name to Linux Learning session with batch40"
+
+
+Certifate ?
+
+$name
+
+
+
+harsha
+
+
+>   first time 
+>> append next line 
+
+
+date > info
+who >> info
+ps >> info
+
+
+Solution 
+#!/bin/bash 
+echo "Current Date & time is $(date)" > info
+echo "Current user logged in is $(whoami)" >> info
+echo "Current running process is $(ps)" >> info
+
+-----------
+
+#!/bin/bash
+info_file="~/info.txt"
+echo "This is the current date and time in IST" >> $info_file
+date >> $info_file
+echo "Below are the list of logged in user" >> $info_file
+whoami >> $info_file
+echo "Below are the currently running proces" >> $infor_file
+ps -ef >> $info_file
+
+
+#!/bin/bash
+
+# Clear the info file if it exists and add a header
+echo "--- System Information Report ---" > info
+echo "Report generated on: $(date)" >> info
+echo "---------------------------------" >> info
+
+# 1) Show the current time and date
+echo "### Current Time and Date ###" >> info
+date >> info
+echo "" >> info # Add a blank line for readability
+
+# 2) List logged-in users
+echo "### Logged-in Users ###" >> info
+who >> info
+echo "" >> info
+
+# 3) Show all running processes
+echo "### Running Processes ###" >> info
+ps aux >> info
+echo "" >> info
+
+echo "Report successfully saved to 'info' file."
+
+
+write a script to execure ps -   30 times in the duration of 30 sec ?
+
+
+for i in {1..30}
+do
+    ps 
+    echo "----------------------------------------"
+    sleep 10
+
+--------------------------
+
+let us C    15 year's 
+
+
+#!/bin/bash
+# Write a shell script to display the process running on the system for every
+# 30 seconds, but only for 3 times.
+# -------------------------------------------------------------------------
+# -------------------------------------------------------------------------
+# 
+# for loop 3 times
+for r in 1 2 3
+do
+	#see every process on the system
+	echo "**************************** x^x^x ****************************"
+	ps
+	echo "**************************** x^x^x ****************************"
+	#sleep for 10 seconds
+	sleep 10
+  
+done
+
+
+
+i'm   syntex error 
+
+i am 
+
+
+&&  both condition shoud be correct   
+
+
+  ||  one condition shoud be correct 
+  
+  
+  
+  variable vs function 
+  
+  x=1
+  
+  git commit && git push                  
+git commit || echo
+
+               def
+Functions      get_name()
+
+
+how to define function 
+
+how to call function  
+
+
+function()
+{
+syntax
+}
+
+echo $function()
+
+
+
+Defining func:
+
+greet_user() {
+    echo "Hello, $1!"
+    echo "You're in Batch $2."
+}
+
+calling func:
+# Call the function
+greet_user
+
+
+
+
+
+#!/bin/bash
+
+# Sample script written for Part 4 of the RHCE series
+# This script will return the following set of system information:
+# -Hostname information:
+echo -e "\e[31;43m***** HOSTNAME INFORMATION *****\e[0m"
+hostnamectl
+echo ""
+# -File system disk space usage:
+echo -e "\e[31;43m***** FILE SYSTEM DISK SPACE USAGE *****\e[0m"
+df -h
+echo ""
+# -Free and used memory in the system:
+echo -e "\e[31;43m ***** FREE AND USED MEMORY *****\e[0m"
+free
+echo ""
+# -System uptime and load:
+echo -e "\e[31;43m***** SYSTEM UPTIME AND LOAD *****\e[0m"
+uptime
+echo ""
+# -Logged-in users:
+echo -e "\e[31;43m***** CURRENTLY LOGGED-IN USERS *****\e[0m"
+who
+echo ""
+# -Top 5 processes as far as memory usage is concerned
+echo -e "\e[31;43m***** TOP 5 MEMORY-CONSUMING PROCESSES *****\e[0m"
+ps -eo %mem,%cpu,comm --sort=-%mem | head -n 6
+echo ""
+echo -e "\e[1;32mDone.\e[0m"
+
+
+===========
+
+echo -e "\e[31;43m***** HOSTNAME INFORMATION *****\e[0m"
+
+hostnamectl
+df -h
+free
+uptime
+who
+ps
+
+
+
+#!/bin/bash
+echo "Printing text with newline"
+echo -n "Printing text without newline"
+echo -e "\nRemoving \t backslash \t characters\n"
+
+
+\n
+\t
+
