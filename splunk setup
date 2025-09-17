@@ -28,6 +28,17 @@ git clone https://github.com/immontilla/splunk
 export RANDOMPASS=`date +%s | sha256sum | base64 | head -c 32 ; echo`
 echo $RANDOMPASS
 docker-compose up -d
+
+
+sudo docker run -d \
+  --name splunk \
+  -p 8000:8000 \
+  -e SPLUNK_START_ARGS="--accept-license" \
+  -e SPLUNK_GENERAL_TERMS="--accept-sgt-current-at-splunk-com" \
+  -e SPLUNK_PASSWORD=UPDATETHPASSWORDHERE\
+  splunk/splunk
+
+
 systemctl status docker
 check on browser with port 8000
 
