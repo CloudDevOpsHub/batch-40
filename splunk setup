@@ -1,0 +1,36 @@
+Docker installation in EC2 with 50GB EBS volume + t2.large
+
+	 sudo yum update -y
+	 sudo yum install docker
+	 sudo usermod -a -G docker ec2-user
+                         docker info  
+       service docker start
+
+Docker Compose installation in EC2 
+1. Run this command to download the current stable release of Docker Compose:
+curl -SL https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+
+2. Apply executable permissions to the binary:
+$ sudo chmod +x /usr/local/bin/docker-compose
+
+3. Test the installation:
+$ docker-compose --version
+
+
+
+Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application's services
+
+https://github.com/immontilla/splunk 
+
+
+git clone https://github.com/immontilla/splunk 
+
+export RANDOMPASS=`date +%s | sha256sum | base64 | head -c 32 ; echo`
+echo $RANDOMPASS
+docker-compose up -d
+systemctl status docker
+check on browser with port 8000
+
+
+
+
